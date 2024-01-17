@@ -41,4 +41,8 @@ public interface DishService {
      * @param dishDTO
      */
     void updateWithFlavor(DishDTO dishDTO);
+
+    void updateStatus(Integer status, Long id);
+
+    List<Dish> getByCategoryId(Long categoryId);
 }

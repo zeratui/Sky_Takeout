@@ -12,3 +12,8 @@ sky:
     access-key-id: LTAI5tJVSNSg2Zjm5BahWeG6
     access-key-secret: F8NJgFzu8LoTYSQPCvs8aHtwzi7rMU
     bucket-name: sky-itcast-zeratul
+  redis:
+    host: localhost
+    port: 6379
+    password: 123456
+    database: 0
