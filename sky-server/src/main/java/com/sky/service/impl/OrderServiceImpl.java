@@ -138,7 +138,6 @@ public class OrderServiceImpl implements OrderService {
                 .status(Orders.TO_BE_CONFIRMED)
                 .build();
         orderMapper.update(orders);
-
         String outTradeNo = orders.getNumber();
         paySuccess(outTradeNo);
 
