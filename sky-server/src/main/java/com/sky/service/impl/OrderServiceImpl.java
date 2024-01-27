@@ -132,22 +132,24 @@ public class OrderServiceImpl implements OrderService {
         User user = userMapper.getById(userId);
 
         //模拟支付成功
-        Orders orders = Orders.builder()
-                .userId(userId)
-                .number(ordersPaymentDTO.getOrderNumber())
-                .status(Orders.TO_BE_CONFIRMED)
-                .build();
-        orderMapper.update(orders);
-        String outTradeNo = orders.getNumber();
-        paySuccess(outTradeNo);
+//        Orders orders = Orders.builder()
+//                .userId(userId)
+//                .number(ordersPaymentDTO.getOrderNumber())
+//                .status(Orders.TO_BE_CONFIRMED)
+//                .build();
+//        orderMapper.update(orders);
+//        String outTradeNo = orders.getNumber();
+//        paySuccess(outTradeNo);
 
         //调用微信支付接口，生成预支付交易单
-        JSONObject jsonObject = weChatPayUtil.pay(
-                ordersPaymentDTO.getOrderNumber(), //商户订单号
-                new BigDecimal(0.01), //支付金额，单位 元
-                "苍穹外卖订单", //商品描述
-                user.getOpenid() //微信用户的openid
-        );
+//        JSONObject jsonObject = weChatPayUtil.pay(
+//                ordersPaymentDTO.getOrderNumber(), //商户订单号
+//                new BigDecimal(0.01), //支付金额，单位 元
+//                "苍穹外卖订单", //商品描述
+//                user.getOpenid() //微信用户的openid
+//        );
+
+        JSONObject jsonObject = new JSONObject();
 
         if (jsonObject.getString("code") != null && jsonObject.getString("code").equals("ORDERPAID")) {
             throw new OrderBusinessException("该订单已支付");
@@ -156,6 +158,7 @@ public class OrderServiceImpl implements OrderService {
         OrderPaymentVO vo = jsonObject.toJavaObject(OrderPaymentVO.class);
         vo.setPackageStr(jsonObject.getString("package"));
 
+        paySuccess(ordersPaymentDTO.getOrderNumber());
         return vo;
     }
 
